@@ -142,17 +142,11 @@ public class Login {
                 mw.openMoviesWindow();
             }
 
-            else if (CheckData.verify(username, password) == 2){
-                Alert.Success("Login successful");
-                loginFrame.dispose();
-                MoviesWindow mw = new MoviesWindow();
-                mw.openMoviesWindow();
-            }
 //
             //close to login and go to movies window
-            loginFrame.dispose();
-            MoviesWindow mw = new MoviesWindow();
-            mw.openMoviesWindow();
+//            loginFrame.dispose();
+//            MoviesWindow mw = new MoviesWindow();
+//            mw.openMoviesWindow();
         });
 
         registerBtn.addActionListener(e -> {

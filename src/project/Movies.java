@@ -1,17 +1,17 @@
 package project;
 
 public class Movies {
-    private String id;
+    private int id;
     private String movieTitle;
     private String movieDirector;
     private String movieActor;
-    private int movieYear;
+    private String movieYear;
     private String movieGenre;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
     public String getTitle() {
@@ -32,10 +32,10 @@ public class Movies {
     public void setMovieActor(String actor) {
         this.movieActor = actor;
     }
-    public int getMovieYear() {
+    public String getMovieYear() {
         return movieYear;
     }
-    public void setMovieYear(int year) {
+    public void setMovieYear(String year) {
         this.movieYear = year;
     }
     public String getMovieGenre() {

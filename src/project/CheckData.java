@@ -29,6 +29,7 @@ public class CheckData {
                 if(userN.equals(res.getString("username")) && pass.equals(res.getString("password"))) {
                     result = 1;
                     // this will fetch user input data
+                    UserData.user_id = res.getInt("user_id");
                     UserData.username = res.getString("username");
                     UserData.password = res.getString("password");
                     UserData.firstname = res.getString("first_name");
@@ -37,23 +38,25 @@ public class CheckData {
                     UserData.usercateg = 1;
 
                 }
-                else if(userN.equals(res.getString("admin")) && pass.equals(res.getString("admin"))){
-                    result = 2;
-                    UserData.username = res.getString("username");
-                    UserData.password = res.getString("password");
-                    UserData.firstname = res.getString("first_name");
-                    UserData.lastname = res.getString("last_name");
-                    UserData.email = res.getString("email");
-                    UserData.usercateg = 2;
-                }
+//                else if(userN.equals(res.getString("admin")) && pass.equals(res.getString("admin"))){
+//                    result = 2;
+//                    UserData.user_id = res.getInt("user_id");
+//                    UserData.username = res.getString("username");
+//                    UserData.password = res.getString("password");
+//                    UserData.firstname = res.getString("first_name");
+//                    UserData.lastname = res.getString("last_name");
+//                    UserData.email = res.getString("email");
+//                    UserData.usercateg = 2;
+//                }
                 else {
-                    System.out.println("Something wrong with the AdminData variables");
+                    System.out.println("Something wrong with the User Data variables");
                 }
 
             }
 
             catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Invalid Credentials!");
+                System.out.println(e.getMessage());
             }
 
         } else {

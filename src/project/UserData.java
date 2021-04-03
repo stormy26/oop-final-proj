@@ -7,4 +7,5 @@ public class UserData {
     public static String lastname;
     public static String email;
     public static int usercateg;
+    public static int user_id;
 }
