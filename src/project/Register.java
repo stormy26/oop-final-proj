@@ -152,13 +152,14 @@ public class Register {
         conn = DatabaseConn.getConnection();
 
         if(conn != null) {
-            String sql = "INSERT INTO Users (username, password, first_name, last_name, email) ";
+            String sql = "INSERT INTO Users (username, password, first_name, last_name, email, category) ";
             sql += "VALUES (";
             sql += "'" + username + "',";
             sql += "'" + password + "',";
             sql += "'" + first_name + "',";
-            sql += "'" + last_name + "'";
-            sql += "'" + email + "'";
+            sql += "'" + last_name + "',";
+            sql += "'" + email + "',";
+            sql += "'" + 1 + "'";
             sql += ")";
 
             System.out.println("register- SQL : " + sql);

@@ -164,24 +164,24 @@ public class MoviesWindow {
 
 
         moviesTable = new JTable();
-//        moviesTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//        moviesTable.setModel(new DefaultTableModel(
-//                new Object[][] {
-//                },
-//                new String[] {
-//                        "ID", "Title", "Director", "Actor", "Year", "Genre"
-//                }
-//        ));
+        moviesTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        moviesTable.setModel(new DefaultTableModel(
+                new Object[][] {
+                },
+                new String[] {
+                        "ID", "Title", "Director", "Actor", "Year", "Genre"
+                }
+        ));
 
         moviesrentedTable = new JTable();
-//        moviesrentedTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//        moviesrentedTable.setModel(new DefaultTableModel(
-//                new Object[][] {
-//                },
-//                new String[] {
-//                        "ID", "Title", "Director", "Actor", "Year", "Genre"
-//                }
-//        ));
+        moviesrentedTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        moviesrentedTable.setModel(new DefaultTableModel(
+                new Object[][] {
+                },
+                new String[] {
+                        "ID", "Title", "Director", "Actor", "Year", "Genre"
+                }
+        ));
 
         JPanel navBar = new JPanel();
         JPanel navVerBar = new JPanel();
@@ -221,11 +221,11 @@ public class MoviesWindow {
         btnEdit = new JButton("Edit");
         btnAdd = new JButton("Add");
         JButton cancelBtn = new JButton("Cancel");
+        JButton loadRentedbtn = new JButton("Load Rented");
+        loadRentedbtn.setBackground(new Color(165, 194, 242));
 
         navBar.setBackground(new Color(2, 9, 61));
         navVerBar.setBackground(new Color(2, 9, 61));
-
-
 
         contentPanel.setBackground(new Color(255, 255, 255));
 
@@ -304,6 +304,7 @@ public class MoviesWindow {
         returnBtn.setBounds(17, 320, 244,23);
         receiptxt.setBounds(275, 320, 280, 145);
         receiptxt.setBackground(new Color(250, 236, 235));
+        loadRentedbtn.setBounds(17, 350, 244,23);
 
         //settings
         infoBtn.setBounds(0,10,180,35);
@@ -371,8 +372,6 @@ public class MoviesWindow {
             btnAdd.setBounds(0, 125, 116, 23);
             cancelBtn.setBounds(128, 125, 116, 23);
 
-
-
         //add elements
         movieFrame.add(movieForm);
         movieFrame.add(splitPane);
@@ -398,16 +397,26 @@ public class MoviesWindow {
         navBar.add(accountBtn);
         navBar.add(logoutBtn);
 
+        if (UserData.usercateg == "1"){
+            movieListPanel.add(rentMovieBtn);
+            movieListPanel.add(loadDataBtn);
+            movieListPanel.add(datajtxt);
+        }
+
+        else{
+            movieListPanel.add(rentMovieBtn);
+            movieListPanel.add(loadDataBtn);
+            movieListPanel.add(editBtn);
+            movieListPanel.add(removeMovieBtn);
+            movieListPanel.add(addMovieBtn);
+            movieListPanel.add(datajtxt);
+        }
         movieListPanel.add(scrollPane);
-        movieListPanel.add(rentMovieBtn);
-        movieListPanel.add(loadDataBtn);
-        movieListPanel.add(editBtn);
-        movieListPanel.add(removeMovieBtn);
-        movieListPanel.add(addMovieBtn);
-        movieListPanel.add(datajtxt);
+
 
         rentedMoviesPanel.add(scrollRentedPane);
         rentedMoviesPanel.add(returnBtn);
+        rentedMoviesPanel.add(loadRentedbtn);
         rentedMoviesPanel.add(receiptxt);
 
         navVerBar.add(infoBtn);
@@ -486,7 +495,7 @@ public class MoviesWindow {
                             Alert.Error("Error occurred in the database process. Please try again.");
 
                         } else {
-                            Alert.Success("Music was added successfully");
+                            Alert.Success("Movie was added successfully");
 
                             movieTitle.setText("");
                             movieDirector.setText("");
@@ -517,17 +526,18 @@ public class MoviesWindow {
         deleteBtn.addActionListener(e -> {
             //
             int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete your account?",
-                    "Alert",JOptionPane.YES_OPTION);
+                    "Alert",JOptionPane.YES_NO_OPTION);
 
-            if(response == 0) {
+            if(response == JOptionPane.YES_OPTION){
                 deleteAccount();
 
                 Alert.Success("Account deleted!");
+                movieFrame.dispose();
+                Login lw = new Login();
+                lw.showWindow();
             }
 
-            movieFrame.dispose();
-            Login lw = new Login();
-            lw.showWindow();
+
         });
 
         updateAccBtn.addActionListener(e -> {
@@ -573,6 +583,28 @@ public class MoviesWindow {
             }
         });
 
+        loadRentedbtn.addActionListener(e -> {
+            DefaultTableModel model = (DefaultTableModel) moviesrentedTable.getModel();
+
+            if(moviesrentedTable.getSelectedRow() < 0) {
+                Alert.Error("Select a row to display");
+            } else {
+
+                conn = DatabaseConn.getConnection();
+
+                int i = moviesrentedTable.getSelectedRow();
+
+                receiptxt.setText("");
+                receiptxt.append("Movie Information: \n"
+                        + "\nTitle:\t" + (String)model.getValueAt(i, 1).toString()
+                        + "\nDirector:\t" + (String)model.getValueAt(i, 2).toString()
+                        + "\nActor:\t" + (String)model.getValueAt(i, 3).toString()
+                        + "\nYear:\t" + (String)model.getValueAt(i, 4).toString()
+                        + "\nGenre:\t" + (String)model.getValueAt(i, 5).toString());
+
+            }
+        });
+
         removeMovieBtn.addActionListener(e -> {
             DefaultTableModel model = (DefaultTableModel) moviesTable.getModel();
             if(moviesTable.getSelectedRow() < 0) {
@@ -603,7 +635,6 @@ public class MoviesWindow {
 
             Movies movie = createMoviewithID(i, row_id);
             boolean success = false;
-            boolean success1 = false;
             removeData(id, false);
             success = rentMovie(movie);
 
@@ -628,7 +659,7 @@ public class MoviesWindow {
 
             Movies movie = returnMoviewithID(i, row_id);
             boolean success = false;
-            removeData(id, false);
+            removeDataRent(id, false);
             success = returnMovie(movie);
 
             if (!success) {
@@ -636,7 +667,6 @@ public class MoviesWindow {
             } else {
                 Alert.Message("Alert", "Movie was successfully returned!");
             }
-
         });
 
         cancelBtn.addActionListener(e -> {
@@ -731,6 +761,7 @@ public class MoviesWindow {
                 DefaultTableModel model= (DefaultTableModel)moviesTable.getModel();
                 model.setRowCount(0);
                 refreshMoviesTable();
+                refreshRentedTable();
             }
 
         }
@@ -749,7 +780,7 @@ public class MoviesWindow {
 
         if(conn != null){
 
-            String sql= "DELETE FROM Movies WHERE movie_id = " + id;
+            String sql= "DELETE FROM Movies WHERE movie_id = " + "'" + id + "'";
             System.out.println("removeTable- SQL : " + sql);
 
             try {
@@ -762,6 +793,31 @@ public class MoviesWindow {
             if (flag){
                 Alert.Success("Movie deleted successfully");
             }
+        }
+
+    }
+
+    private void removeDataRent(String id, boolean flag) {
+
+        conn= DatabaseConn.getConnection();
+
+        if(conn != null){
+
+            String sql= "DELETE FROM Rented WHERE movie_id = " + "'" + id + "'";
+            System.out.println("removeTable- SQL : " + sql);
+
+            try {
+                prep= conn.prepareStatement(sql);
+                prep.executeUpdate();
+
+            } catch (Exception e) {
+                Alert.Warning("[removeTable] " + e.getMessage());
+            }
+            if (flag){
+                Alert.Success("Movie deleted successfully");
+            }
+            DefaultTableModel model= (DefaultTableModel)moviesrentedTable.getModel();
+            model.removeRow(moviesrentedTable.getSelectedRow());
         }
 
     }
@@ -804,8 +860,8 @@ public class MoviesWindow {
 
         if(conn != null) {
 
-            String sql = "SELECT  movie_id, movie_title, movie_director, movie_actor, movie_year, movie_genre FROM Rented" +
-                    " WHERE user_id =" + "'" + UserData.user_id + "'";
+            String sql = "SELECT movie_id, movie_title, movie_director, movie_actor, movie_year, movie_genre FROM Rented" +
+                    " WHERE user_id =" + UserData.user_id;
             System.out.println("refreshTable- SQL : " + sql);
 
             try {
@@ -822,12 +878,12 @@ public class MoviesWindow {
                     columnData[5] = res.getString("movie_genre");
                     tableRentedModel.addRow(columnData);
                 }
-                moviesTable.setSelectionBackground(new Color(189,124,42));
+                moviesrentedTable.setSelectionBackground(new Color(189,124,42));
 
             }
 
             catch (Exception e) {
-                Alert.Warning("[refreshTable] " + e.getMessage());
+                Alert.Warning("[refresjremted] " + e.getMessage());
             }
         }
 
@@ -898,6 +954,7 @@ public class MoviesWindow {
                     DefaultTableModel model= (DefaultTableModel)moviesTable.getModel();
                     model.setRowCount(0);
                     refreshMoviesTable();
+                    refreshRentedTable();
                 }
 
             }
@@ -942,6 +999,7 @@ public class MoviesWindow {
                     DefaultTableModel model= (DefaultTableModel)moviesTable.getModel();
                     model.setRowCount(0);
                     refreshMoviesTable();
+                    refreshRentedTable();
                 }
 
             }
@@ -1054,6 +1112,7 @@ public class MoviesWindow {
                     // then redraw the table
                     DefaultTableModel model= (DefaultTableModel)moviesTable.getModel();
                     model.setRowCount(0);
+                    refreshRentedTable();
                     refreshMoviesTable();
                 }
 

@@ -27,7 +27,12 @@ public class CheckData {
                 res.next();
 
                 if(userN.equals(res.getString("username")) && pass.equals(res.getString("password"))) {
-                    result = 1;
+                    if ("admin".equals(res.getString("username"))){
+                        UserData.usercateg = "2";
+                    }
+                    else{
+                        UserData.usercateg = "1";
+                    }
                     // this will fetch user input data
                     UserData.user_id = res.getInt("user_id");
                     UserData.username = res.getString("username");
@@ -35,19 +40,10 @@ public class CheckData {
                     UserData.firstname = res.getString("first_name");
                     UserData.lastname = res.getString("last_name");
                     UserData.email = res.getString("email");
-                    UserData.usercateg = 1;
 
+                    result = 1;
                 }
-//                else if(userN.equals(res.getString("admin")) && pass.equals(res.getString("admin"))){
-//                    result = 2;
-//                    UserData.user_id = res.getInt("user_id");
-//                    UserData.username = res.getString("username");
-//                    UserData.password = res.getString("password");
-//                    UserData.firstname = res.getString("first_name");
-//                    UserData.lastname = res.getString("last_name");
-//                    UserData.email = res.getString("email");
-//                    UserData.usercateg = 2;
-//                }
+
                 else {
                     System.out.println("Something wrong with the User Data variables");
                 }
