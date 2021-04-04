@@ -1,6 +1,8 @@
 package project;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
@@ -11,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import static java.awt.Image.SCALE_SMOOTH;
+import static javax.swing.BorderFactory.createEmptyBorder;
 
 public class MoviesWindow {
     JFrame movieFrame;
@@ -224,36 +227,36 @@ public class MoviesWindow {
         JButton loadRentedbtn = new JButton("Load Rented");
         loadRentedbtn.setBackground(new Color(165, 194, 242));
 
-        navBar.setBackground(new Color(2, 9, 61));
-        navVerBar.setBackground(new Color(2, 9, 61));
+        navBar.setBackground(new Color(0, 89, 82));
+        navVerBar.setBackground(new Color(0, 89, 82));
 
         contentPanel.setBackground(new Color(255, 255, 255));
 
-        moviesBtn.setBackground(new Color(2, 9, 61));
+        moviesBtn.setBackground(new Color(0, 89, 82));
         moviesBtn.setForeground(new Color(255,255,255));
         moviesBtn.setBorderPainted(false);
 
-        yourMoviesBtn.setBackground(new Color(2, 9, 61));
+        yourMoviesBtn.setBackground(new Color(0, 89, 82));
         yourMoviesBtn.setForeground(new Color(255,255,255));
         yourMoviesBtn.setBorderPainted(false);
 
-        accountBtn.setBackground(new Color(2, 9, 61));
+        accountBtn.setBackground(new Color(0, 89, 82));
         accountBtn.setForeground(new Color(255,255,255));
         accountBtn.setBorderPainted(false);
 
-        infoBtn.setBackground(new Color(2, 9, 61));
+        infoBtn.setBackground(new Color(0, 89, 82));
         infoBtn.setForeground(new Color(255,255,255));
         infoBtn.setBorderPainted(false);
 
-        updateBtn.setBackground(new Color(2, 9, 61));
+        updateBtn.setBackground(new Color(0, 89, 82));
         updateBtn.setForeground(new Color(255,255,255));
         updateBtn.setBorderPainted(false);
 
-        deleteBtn.setBackground(new Color(2, 9, 61));
+        deleteBtn.setBackground(new Color(0, 89, 82));
         deleteBtn.setForeground(new Color(255,255,255));
         deleteBtn.setBorderPainted(false);
 
-        logoutBtn.setBackground(new Color(2, 9, 61));
+        logoutBtn.setBackground(new Color(0, 89, 82));
         logoutBtn.setForeground(new Color(255,255,255));
         logoutBtn.setBorderPainted(false);
 
@@ -297,13 +300,13 @@ public class MoviesWindow {
         editBtn.setBounds(17, 410, 244,23);
         removeMovieBtn.setBounds(17, 440, 244,23);
         datajtxt.setBounds(275, 320, 280, 145);
-        datajtxt.setBackground(new Color(250, 236, 235));
+        datajtxt.setBackground(new Color(225, 245, 239));
 
 
         //rented movies list
         returnBtn.setBounds(17, 320, 244,23);
         receiptxt.setBounds(275, 320, 280, 145);
-        receiptxt.setBackground(new Color(250, 236, 235));
+        receiptxt.setBackground(new Color(225, 245, 239));
         loadRentedbtn.setBounds(17, 350, 244,23);
 
         //settings
@@ -335,11 +338,27 @@ public class MoviesWindow {
         email.setBounds(200, 350, 300, 35);
         updateAccBtn.setBounds(100,430, 250, 35 );
 
+        Border border = new LineBorder(new Color(245, 245, 242), 1, false);
+        moviesTable.setBorder(border);
+        moviesTable.setShowVerticalLines(false);
+        moviesTable.setSelectionBackground(new Color(180, 217, 206));
+        moviesTable.getTableHeader().setBackground(new Color(0, 89, 82));
+        moviesTable.getTableHeader().setForeground(new Color(255, 255, 255));
+        moviesTable.getTableHeader().setBorder(createEmptyBorder());
         JScrollPane scrollPane = new JScrollPane(moviesTable);
         scrollPane.setBounds(17, 30, 850, 270);
+        scrollPane.getViewport().setBackground(Color.WHITE);
+        scrollPane.setBorder(border);
 
+        moviesrentedTable.setShowVerticalLines(false);
+        moviesrentedTable.setBorder(border);
+        moviesrentedTable.setSelectionBackground(new Color(180, 217, 206));
+        moviesrentedTable.getTableHeader().setBackground(new Color(0, 89, 82));
+        moviesrentedTable.getTableHeader().setForeground(new Color(255, 255, 255));
         JScrollPane scrollRentedPane = new JScrollPane(moviesrentedTable);
         scrollRentedPane.setBounds(17, 30, 850, 270);
+        scrollRentedPane.getViewport().setBackground(Color.WHITE);
+        scrollRentedPane.setBorder(border);
 
         moviesBtn.setBounds(0,0,60,50);
         yourMoviesBtn.setBounds(60,0,60,50);
@@ -844,7 +863,6 @@ public class MoviesWindow {
                     columnData[5] = res.getString("movie_genre");
                     tableMoviesModel.addRow(columnData);
                 }
-                moviesTable.setSelectionBackground(new Color(189,124,42));
 
             }
 
@@ -878,7 +896,6 @@ public class MoviesWindow {
                     columnData[5] = res.getString("movie_genre");
                     tableRentedModel.addRow(columnData);
                 }
-                moviesrentedTable.setSelectionBackground(new Color(189,124,42));
 
             }
 

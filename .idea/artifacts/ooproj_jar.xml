@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ooproj:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ooproj_jar</output-path>
+    <root id="archive" name="ooproj.jar">
+      <element id="module-output" name="ooproj" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/oop-musicsystem-master/sqlite-jdbc-3.27.2.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
