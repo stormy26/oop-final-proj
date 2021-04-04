@@ -209,6 +209,7 @@ public class MoviesWindow {
         JButton logoutBtn = new JButton("Log out");
 
         JButton updateAccBtn = new JButton("Update Details");
+        updateAccBtn.setBackground(new Color(165, 194, 242));
 
         JButton cancelBtn = new JButton("Cancel");
         cancelBtn.setBackground(new Color(165, 194, 242));
