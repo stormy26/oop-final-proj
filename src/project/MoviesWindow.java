@@ -123,17 +123,6 @@ public class MoviesWindow {
         JLabel emaillbl = new JLabel(UserData.email);
         emaillbl.setFont(new Font("Roboto", Font.PLAIN, 12));
 
-        //for testing purposes only
-//        JLabel usernamelbl = new JLabel("Nielsen");
-//        usernamelbl.setFont(new Font("Roboto", Font.BOLD, 14));
-//        JLabel firstnamelbl = new JLabel("Nielsen John");
-//        firstnamelbl.setFont(new Font("Roboto", Font.PLAIN, 12));
-//        JLabel lastnamelbl = new JLabel("Bernardo");
-//        lastnamelbl.setFont(new Font("Roboto", Font.PLAIN, 12));
-//        JLabel emaillbl = new JLabel("nielsenbernardo26@gmail.com");
-//        emaillbl.setFont(new Font("Roboto", Font.PLAIN, 12));
-
-
         //display account data for editing
         JLabel editdetailslbl = new JLabel("Edit your Details");
         editdetailslbl.setFont(new Font("Roboto", Font.BOLD, 20));
