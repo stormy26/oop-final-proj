@@ -210,9 +210,8 @@ public class MoviesWindow {
 
         JButton updateAccBtn = new JButton("Update Details");
 
-        btnEdit = new JButton("Edit");
-        btnAdd = new JButton("Add");
         JButton cancelBtn = new JButton("Cancel");
+        cancelBtn.setBackground(new Color(165, 194, 242));
         JButton loadRentedbtn = new JButton("Load Rented");
         loadRentedbtn.setBackground(new Color(165, 194, 242));
 
@@ -288,15 +287,17 @@ public class MoviesWindow {
         addMovieBtn.setBounds(17, 380, 244,23);
         editBtn.setBounds(17, 410, 244,23);
         removeMovieBtn.setBounds(17, 440, 244,23);
-        datajtxt.setBounds(275, 320, 280, 145);
+        datajtxt.setBounds(275, 320, 300, 145);
         datajtxt.setBackground(new Color(225, 245, 239));
+        datajtxt.setEditable(false);
 
 
         //rented movies list
         returnBtn.setBounds(17, 320, 244,23);
-        receiptxt.setBounds(275, 320, 280, 145);
+        receiptxt.setBounds(275, 320, 300, 145);
         receiptxt.setBackground(new Color(225, 245, 239));
         loadRentedbtn.setBounds(17, 350, 244,23);
+        receiptxt.setEditable(false);
 
         //settings
         infoBtn.setBounds(0,10,180,35);
@@ -359,26 +360,25 @@ public class MoviesWindow {
 
         accPanel.setBackground(Color.white);
         updPanel.setBackground(Color.white);
+        movieForm.setBackground(Color.white);
 
         //movie form
         movieForm.setBounds(600, 350, 244, 149);
         movieForm.setLayout(null);
         //movie form contents
-            titlelbl.setBounds(0, 0, 46, 14);
-            directorlbl.setBounds(0, 25, 46, 14);
-            actorlbl.setBounds(0, 50, 46, 14);
-            yearlbl.setBounds(0, 75, 46, 14);
-            genrelbl.setBounds(0, 100, 46, 14);
+        titlelbl.setBounds(0, 0, 46, 14);
+        directorlbl.setBounds(0, 25, 46, 14);
+        actorlbl.setBounds(0, 50, 46, 14);
+        yearlbl.setBounds(0, 75, 46, 14);
+        genrelbl.setBounds(0, 100, 46, 14);
 
-            movieTitle.setBounds(119,0, 125,20);
-            movieDirector.setBounds(119,25, 125,20);
-            movieActor.setBounds(119,50, 125,20);
-            movieYear.setBounds(119,75, 125,20);
-            movieGenre.setBounds(119,100, 125,20);
+        movieTitle.setBounds(119,0, 125,20);
+        movieDirector.setBounds(119,25, 125,20);
+        movieActor.setBounds(119,50, 125,20);
+        movieYear.setBounds(119,75, 125,20);
+        movieGenre.setBounds(119,100, 125,20);
 
-            btnEdit.setBounds(0, 125, 116, 23);
-            btnAdd.setBounds(0, 125, 116, 23);
-            cancelBtn.setBounds(128, 125, 116, 23);
+        cancelBtn.setBounds(128, 125, 116, 23);
 
         //add elements
         movieFrame.add(movieForm);
@@ -484,6 +484,7 @@ public class MoviesWindow {
         addMovieBtn.addActionListener(e -> {
             movieForm.setVisible(true);
 
+            btnAdd = new JButton("Add");
             btnAdd.setEnabled(true);
             btnAdd.addActionListener(new ActionListener(){
 
@@ -504,25 +505,24 @@ public class MoviesWindow {
 
                         } else {
                             Alert.Success("Movie was added successfully");
-
                             movieTitle.setText("");
                             movieDirector.setText("");
                             movieActor.setText("");
                             movieYear.setText("");
                             movieGenre.setText("");
-
-                            movieForm.setVisible(false);
-
                         }
+                        movieForm.setVisible(false);
                     }
                 }
             });
 
+            btnAdd.setBackground(new Color(165, 194, 242));
+            btnAdd.setBounds(0, 125, 116, 23);
             try	{
                 movieForm.remove(btnEdit);
             }
             catch(NullPointerException ex) {
-                System.out.println("Safe"); // will throw exception if
+                System.out.println("Safe");
             }
 
             movieForm.add(btnAdd);
@@ -704,6 +704,10 @@ public class MoviesWindow {
             movieYear.setText((String)tableMoviesModel.getValueAt(i, 4).toString());
             movieGenre.setText((String)tableMoviesModel.getValueAt(i, 5).toString());
 
+            btnEdit = new JButton("Edit");
+            btnEdit.setBackground(new Color(165, 194, 242));
+            btnEdit.setBounds(0, 125, 116, 23);
+
             btnEdit.addActionListener(new ActionListener() {
 
                 public void actionPerformed(ActionEvent e) {
@@ -736,7 +740,7 @@ public class MoviesWindow {
                 System.out.println("Safe");
             }
 
-            movieForm.add(btnEdit); // button needs to be remove first
+            movieForm.add(btnEdit); // button needs to be removed first
             movieForm.revalidate(); // update changes
             movieForm.repaint(); // update changes
             if(moviesTable.getSelectedRow() < 0) {
@@ -947,11 +951,11 @@ public class MoviesWindow {
 
             String sql = "INSERT INTO Movies (movie_title, movie_director, movie_actor, movie_year, movie_genre) ";
             sql += "VALUES (";
-            sql += "'" + movie.getTitle() + "',";
-            sql += "'" + movie.getMovieDirector() + "',";
-            sql += "'" + movie.getMovieActor() + "',";
-            sql += "'" + movie.getMovieYear() + "',";
-            sql += "'" + movie.getMovieGenre() + "'";
+            sql += "'" + (String) movie.getTitle() + "',";
+            sql += "'" + (String) movie.getMovieDirector() + "',";
+            sql += "'" + (String) movie.getMovieActor() + "',";
+            sql += "'" + (String) movie.getMovieYear() + "',";
+            sql += "'" + (String) movie.getMovieGenre() + "'";
             sql += ")";
 
             System.out.println("addTable- SQL : " + sql);
