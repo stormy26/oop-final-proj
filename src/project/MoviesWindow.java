@@ -144,7 +144,7 @@ public class MoviesWindow {
         JLabel lastnametxtlbl = new JLabel("Last Name");
         JLabel emailtxtlbl = new JLabel("Email");
 
-        ImageIcon profilePic = new ImageIcon("blankprofile.png");
+        ImageIcon profilePic = new ImageIcon(ClassLoader.getSystemResource("blankprofile.png"));
         Image profileImage = profilePic.getImage();
         Image newprofileImage = profileImage.getScaledInstance(100, 100,  SCALE_SMOOTH);
         profilePic = new ImageIcon(newprofileImage);
@@ -740,6 +740,13 @@ public class MoviesWindow {
 
                 }
             });
+
+            try {
+                movieForm.remove(btnAdd);
+            } catch(NullPointerException ex) {
+                System.out.println("Safe");
+            }
+
             movieForm.add(btnEdit); // button needs to be remove first
             movieForm.revalidate(); // update changes
             movieForm.repaint(); // update changes
@@ -847,7 +854,7 @@ public class MoviesWindow {
         if(conn != null) {
 
             String sql = "SELECT movie_id, movie_title, movie_director, movie_actor, movie_year, movie_genre FROM Movies";
-            System.out.println("refreshTable- SQL : " + sql);
+            System.out.println("refreshMoviesTable- SQL : " + sql);
 
             try {
                 prep = conn.prepareStatement(sql);
@@ -867,7 +874,7 @@ public class MoviesWindow {
             }
 
             catch (Exception e) {
-                Alert.Warning("[refreshTable] " + e.getMessage());
+                Alert.Warning("[refreshMoviesTable] " + e.getMessage());
             }
         }
 

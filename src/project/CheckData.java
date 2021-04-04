@@ -19,7 +19,7 @@ public class CheckData {
 
         if(conn != null) {
             String sql = "SELECT * FROM users where username = \"" + userN + "\" AND password = \"" + pass + "\" ;";
-            System.out.println("refreshTable- SQL : " + sql);
+            System.out.println("refreshData- SQL : " + sql);
 
             try {
                 prep = conn.prepareStatement(sql);
@@ -56,7 +56,7 @@ public class CheckData {
             }
 
         } else {
-            Alert.Error("[AdminData.java] conn is null");
+            Alert.Error("[CheckData.java] conn is null");
         }
 
         return result;

@@ -72,13 +72,13 @@ public class Login {
 
         registerBtn.setBackground(new Color(187, 252, 229));
 
-        ImageIcon moviePic = new ImageIcon("people-watching.png");
+        ImageIcon moviePic = new ImageIcon(ClassLoader.getSystemResource("people-watching.png"));
         Image movieIconimage = moviePic.getImage();
         Image movieIconnewimg = movieIconimage.getScaledInstance(800, 600,  SCALE_SMOOTH);
         moviePic = new ImageIcon(movieIconnewimg);
         JLabel moviePicLabel= new JLabel(moviePic);
 
-        ImageIcon movieLogoIcon = new ImageIcon("movies-icon.png");
+        ImageIcon movieLogoIcon = new ImageIcon(ClassLoader.getSystemResource("movies-icon.png"));
         Image movieLogoIconImage = movieLogoIcon.getImage();
         Image movieLogoIconNewimg = movieLogoIconImage.getScaledInstance(100, 100,  SCALE_SMOOTH);
         movieLogoIcon = new ImageIcon(movieLogoIconNewimg);
@@ -141,12 +141,6 @@ public class Login {
                 MoviesWindow mw = new MoviesWindow();
                 mw.openMoviesWindow();
             }
-
-//
-            //close to login and go to movies window
-//            loginFrame.dispose();
-//            MoviesWindow mw = new MoviesWindow();
-//            mw.openMoviesWindow();
         });
 
         registerBtn.addActionListener(e -> {
@@ -160,7 +154,7 @@ public class Login {
         if(conn != null) {
 
             String sql = "SELECT username, password, First_name, last_name FROM Users";
-            System.out.println("refreshTable- SQL : " + sql);
+            System.out.println("refreshData- SQL : " + sql);
 
             try {
                 prep = conn.prepareStatement(sql);
@@ -168,7 +162,7 @@ public class Login {
             }
 
             catch (Exception e) {
-                Alert.Warning("[refreshTable] " + e.getMessage());
+                Alert.Warning("[refreshData] " + e.getMessage());
             }
         }
 
