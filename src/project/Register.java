@@ -44,7 +44,7 @@ public class Register {
         registerFrame.getContentPane().setBackground(new Color(255, 255, 255));
 
         //declare elements
-        ImageIcon moviePic = new ImageIcon("people-watching.png");
+        ImageIcon moviePic = new ImageIcon(ClassLoader.getSystemResource("people-watching.png"));
         Image movieIconimage = moviePic.getImage();
         Image movieIconnewimg = movieIconimage.getScaledInstance(800, 600,  SCALE_SMOOTH);
         moviePic = new ImageIcon(movieIconnewimg);

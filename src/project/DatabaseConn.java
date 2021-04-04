@@ -13,7 +13,7 @@ public abstract  class DatabaseConn {
         try {
             Class.forName("org.sqlite.JDBC");
             if(conn == null || conn.isClosed()) // dont make connection if there's already one
-                conn = DriverManager.getConnection("jdbc:sqlite::resource:MovieRental.db");
+                conn = DriverManager.getConnection("jdbc:sqlite:MovieRental.db");
             // Uncomment for testing database connection
 //			Alert.Success("Database connected!");
             return conn;
